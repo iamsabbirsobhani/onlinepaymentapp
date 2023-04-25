@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'payapp/styles/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'payapp/styles/style.css' %}" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'payapp/images/favicon.png' %}"
+    />
+    <title>{% block title %}Pay App{% endblock %}</title>
+
+    <!-- SEO meta tags -->
+    <meta
+      name="description"
+      content="Pay App is a secure and convenient online payment platform that allows users to send and receive payments easily. With Pay App, you can make quick and secure transactions, pay bills, transfer money to friends and family, and manage your finances all in one place. Whether you need to split a bill, pay for a service, or send money internationally, Pay App provides a seamless and user-friendly experience. Sign up for free and start managing your payments efficiently with Pay App."
+    />
+    <meta
+      name="keywords"
+      content="Pay App, online payments, money transfer, bill payment, finance management, payment platform, secure transactions, split bills, send money, receive payments"
+    />
+    <meta name="canonical" href="{{ request.build_absolute_uri }}" />
+
+    <meta
+      property="og:description"
+      content="Pay App is a secure and convenient online payment platform that allows users to send and receive payments easily. With Pay App, you can make quick and secure transactions, pay bills, transfer money to friends and family, and manage your finances all in one place. Whether you need to split a bill, pay for a service, or send money internationally, Pay App provides a seamless and user-friendly experience. Sign up for free and start managing your payments efficiently with Pay App."
+    />
+    <meta
+      property="og:image"
+      content="{% static 'payapp/images/payapp-logo.svg' %}"
+    />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter meta tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta
+      name="twitter:description"
+      content="Pay App is a secure and convenient online payment platform that allows users to send and receive payments easily. With Pay App, you can make quick and secure transactions, pay bills, transfer money to friends and family, and manage your finances all in one place. Whether you need to split a bill, pay for a service, or send money internationally, Pay App provides a seamless and user-friendly experience. Sign up for free and start managing your payments efficiently with Pay App."
+    />
+    <meta
+      name="twitter:image"
+      content="{% static 'payapp/images/payapp-logo.svg' %}"
+    />
+    <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
+  </head>
+  <body>
+    {% include 'payapp/components/navbar/navbar.html' %}
+    <main id="content">{% block content %}{% endblock %}</main>
+    {% include 'payapp/components/footer/footer.html'%}
+  </body>
+</html>
