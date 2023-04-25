@@ -18,3 +18,7 @@ def loginPage(request):
 def signUp(request):
     return HttpResponse(render(request, 'payapp/signupPage.html'))
 
+
+def dashboardPage(request):
+    return HttpResponse(render(request, 'payapp/dashboardPage.html'))
+
