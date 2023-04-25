@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay App</title>
+    <link rel="stylesheet" href="{% static 'payapp/styles/style.css' %}">
+</head>
+<body>
+    <div>
+        <h1 class="text-green-600 font-bold">id: {{ res.id }}</h1>
+        <h1 class="text-blue-500 font-bold">title: {{ res.title }}</h1>
+        <h1 style="color: red">completed?: {{ res.completed }}</h1>
+    </div>
+</body>
+</html>
