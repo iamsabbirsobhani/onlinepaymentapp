@@ -1,0 +1,71 @@
+{% extends 'payapp/components/base.html' %} {% block title %}Signup | PayApp |
+Your Online Payment Solution{%endblock %} {% block content %} {% load static %}
+
+<div class="max-w-lg m-auto mt-10">
+  <div class="text-center">
+    <h1 class="uppercase font-bold text-xl tracking-wider">Signup</h1>
+  </div>
+
+  <form method="post" class="flex flex-col justify-center items-center mt-5">
+    <div class="flex flex-col">
+      <div class="flex flex-col">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
+          required
+          autocomplete="off"
+          placeholder="Enter your username"
+        />
+      </div>
+      <div class="flex flex-col mt-3">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
+          required
+          autocomplete="off"
+          placeholder="Enter your email"
+        />
+      </div>
+      <div class="flex flex-col mt-3">
+        <label for="password1">Password</label>
+        <input
+          type="password"
+          name="password1"
+          id="password1"
+          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
+          required
+          autocomplete="off"
+          placeholder="Enter your password"
+        />
+      </div>
+      <div class="flex flex-col mt-3">
+        <label for="password2">Confirm Password</label>
+        <input
+          type="password"
+          name="password2"
+          id="password2"
+          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
+          required
+          autocomplete="off"
+          placeholder="Confirm your password"
+        />
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <button
+        type="submit"
+        class="bg-blue-500 w-40 p-2 rounded-md shadow-md text-gray-50 font-bold hover:bg-blue-600 transition duration-300 ease-in-out"
+      >
+        Signup
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
