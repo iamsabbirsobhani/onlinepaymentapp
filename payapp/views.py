@@ -7,5 +7,10 @@ import requests
 # Create your views here.
 
 
-def index(request):
+def homePage(request):
     return HttpResponse(render(request, 'payapp/homePage.html'))
+
+
+def loginPage(request):
+    return HttpResponse(render(request, 'payapp/loginPage.html'))
+
