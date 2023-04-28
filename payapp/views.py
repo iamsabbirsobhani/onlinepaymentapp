@@ -56,7 +56,8 @@ def dashboardPage(request):
     user_id = request.session.get('userid')
     if user_id is not None:
         user = User.objects.get(id=user_id)
-        return render(request, 'payapp/dashboardPage.html', {'user': user})
+        transactions = Transaction.objects.filter(sender=user)
+        return render(request, 'payapp/dashboardPage.html', {'user': user, 'transactions': transactions})
     else:
         return render(request, 'payapp/loginPage.html')
 
@@ -202,8 +203,8 @@ def transferMoney(request):
                         else:
                             error_msg = 'Invalid currency type.'
                             return render(request, 'payapp/transferPage.html', {'user': user, 'error_msg': error_msg})
-
-                        return render(request, 'payapp/dashboardPage.html', {'user': user})
+                        transactions = Transaction.objects.filter(sender=user)
+                        return render(request, 'payapp/dashboardPage.html', {'user': user, 'transaction': transactions})
                     else:
                         # Show error message
                         error_msg = 'Insufficient balance.'
@@ -277,17 +278,38 @@ def process_request(request):
             req_id = request.POST['request_id']
             payment_request = PaymentRequest.objects.get(id=req_id)
             user = User.objects.get(id=user_id)
-            payment_requests = PaymentRequest.objects.filter(receiver=user)
+            payment_requests = PaymentRequest.objects.filter(id=req_id)
             if payment_request is not None:
                 if user.balance >= payment_request.amount:
-                    user.balance = user.balance - payment_request.amount
-                    payment_request.sender.balance = payment_request.sender.balance + payment_request.amount
-                    payment_request.isAccepted = True
-                    user.save()
-                    payment_request.sender.save()
-                    payment_request.save()
-                    msg = 'Payment request processed.'
-                    return render(request, 'payapp/paymentRequestPage.html', {'user': user, 'msg': msg, 'payment_requests': payment_requests})
+                    print("payment_request.currency_type ", payment_request.currency_type == "USD")
+                    if payment_request.currency_type == "USD":
+                        url = "http://127.0.0.1:8000/register/usd_to_gbp/" + str(int(payment_request.amount))
+                        response = requests.get(url)
+                        if response.status_code == 200:
+                            conversion_rate = float(response.content.decode())
+                            user.balance = user.balance - conversion_rate
+                            payment_request.sender.balance = payment_request.sender.balance + payment_request.amount
+                            payment_request.isAccepted = True
+                            user.save()
+                            payment_request.sender.save()
+                            payment_request.save()
+                            msg = 'Payment request processed.'
+                            return render(request, 'payapp/paymentRequestPage.html', {'user': user, 'msg': msg, 'payment_requests': payment_requests})
+                    elif payment_request.currency_type == "GBP":
+                        url = "http://127.0.0.1:8000/register/gbp_to_usd/" + str(int(payment_request.amount))
+                        response = requests.get(url)
+                        print("conversion_rate ", url)
+                        if response.status_code == 200:
+                            conversion_rate = float(response.content.decode())
+                            user.balance = user.balance - conversion_rate
+                            payment_request.sender.balance = payment_request.sender.balance + payment_request.amount
+                            payment_request.isAccepted = True
+                            user.save()
+                            payment_request.sender.save()
+                            payment_request.save()
+                            msg = 'Payment request processed.'
+                            return render(request, 'payapp/paymentRequestPage.html',
+                                          {'user': user, 'msg': msg, 'payment_requests': payment_requests})
                 else:
                     msg = 'Insufficient balance.'
                     return render(request, 'payapp/paymentRequestPage.html', {'user': user, 'msg': msg})

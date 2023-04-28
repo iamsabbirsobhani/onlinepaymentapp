@@ -1,4 +1,15 @@
-<h1 class="mt-5">
-  Balance: <span class="font-bold"> {{user.balance}} </span>
-  <span class="font-bold">{{user.currency_type}}</span>
-</h1>
+<div class="">
+  <h2 class="mt-5">Transactions</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Amount</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for in %}{% endfor %}
+    </tbody>
+  </table>
+</div>

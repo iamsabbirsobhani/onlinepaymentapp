@@ -57,29 +57,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
           <h1 class="font-semibold">Transfer</h1>
         </a>
       </li>
-      <li class="">
-        <a
-          href="/webapps2023/account/"
-          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-            />
-          </svg>
 
-          <h1 class="font-semibold">Account</h1>
-        </a>
-      </li>
       <li>
         <a
           href="/webapps2023/requestpage/"
@@ -131,7 +109,34 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
   </div>
 
   <div class="details-dash col-start-2 col-end-3 row-start-1 row-end-2">
-    {% include 'payapp/components/dashboard/dashboard.html' with user=user %}
+    <h1 class="mt-5">
+      Balance: <span class="font-bold"> {{user.balance}} </span>
+      <span class="font-bold">{{user.currency_type}}</span>
+    </h1>
+
+    {% comment %} {% if transaction %} {% endcomment %}
+    <div class="">
+      <h2 class="mt-10 font-bold">Transactions</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="p-2" scope="col">Amount</th>
+            <th class="p-2" scope="col">Currency</th>
+            <th class="p-2" scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in transactions %}
+          <tr>
+            <td class="p-2 border-2">{{transaction.amount}}</td>
+            <td class="p-2 border-2">{{transaction.currency_type}}</td>
+            <td class="p-2 border-2">{{transaction.date}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% comment %} {% endif %} {% endcomment %}
   </div>
 </div>
 
