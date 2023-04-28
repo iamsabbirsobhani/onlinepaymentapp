@@ -8,7 +8,8 @@ class User(models.Model):
     last_name = models.CharField(max_length=50, default="")
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
-    balance = models.IntegerField(default=0)
+    balance = models.FloatField(default=0.0)
+    role = models.CharField(max_length=50, default="user")
 
     def __str__(self):
         return self.username

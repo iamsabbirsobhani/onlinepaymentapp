@@ -6,7 +6,12 @@ Your Online Payment Solution{%endblock %} {% block content %} {% load static %}
     <h1 class="uppercase font-bold text-xl tracking-wider">Signup</h1>
   </div>
 
-  <form method="post" class="flex flex-col justify-center items-center mt-5">
+  <form
+    action="{% url 'signupform' %}"
+    method="POST"
+    class="flex flex-col justify-center items-center mt-5"
+  >
+    {% csrf_token %}
     <div class="flex flex-col">
       <div class="flex flex-col">
         <label for="username">Username</label>
@@ -20,6 +25,31 @@ Your Online Payment Solution{%endblock %} {% block content %} {% load static %}
           placeholder="Enter your username"
         />
       </div>
+      <div class="flex flex-col mt-3">
+        <label for="firstname">First Name</label>
+        <input
+          type="text"
+          name="firstname"
+          id="firstname"
+          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
+          required
+          autocomplete="off"
+          placeholder="Enter your username"
+        />
+      </div>
+      <div class="flex flex-col mt-3">
+        <label for="lastname">Last Name</label>
+        <input
+          type="text"
+          name="lastname"
+          id="lastname"
+          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
+          required
+          autocomplete="off"
+          placeholder="Enter your username"
+        />
+      </div>
+
       <div class="flex flex-col mt-3">
         <label for="email">Email</label>
         <input
@@ -44,17 +74,19 @@ Your Online Payment Solution{%endblock %} {% block content %} {% load static %}
           placeholder="Enter your password"
         />
       </div>
-      <div class="flex flex-col mt-3">
-        <label for="password2">Confirm Password</label>
-        <input
-          type="password"
-          name="password2"
-          id="password2"
-          class="p-2 w-72 outline-none border-[1px] border-blue-200 rounded-md bg-gray-200"
-          required
-          autocomplete="off"
-          placeholder="Confirm your password"
-        />
+
+      <div class="mt-3">
+        <label for="currency" class="block font-medium text-gray-700"
+          >Select Currency:</label
+        >
+        <select
+          name="currency"
+          id="currency"
+          class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option value="1" class="text-gray-900">GBP</option>
+          <option value="2" class="text-gray-900">USD</option>
+        </select>
       </div>
     </div>
     <div class="text-center mt-5">

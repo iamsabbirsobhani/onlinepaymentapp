@@ -18,8 +18,33 @@
     </title>
   </head>
   <body>
-    {% include 'payapp/components/navbar/navbar.html' %}
+    <nav>
+      <div
+        class="w-full h-16 bg-gray-50 shadow-lg flex justify-between p-5 items-center"
+      >
+        <div class="w-32">
+          <a href="/webapps2023">
+            <img
+              class="w-full h-full object-cover"
+              src="{% static 'payapp/images/payapp-logo.svg' %}"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="flex items-center">
+          <div>{% block navbar %} {% endblock %}</div>
+          <a
+            href="/webapps2023/logout"
+            class="bg-red-500 ml-5 rounded-md p-2 text-gray-50 font-bold m-2 hover:red-blue-600 duration-300 shadow-md"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+
     <main id="content">{% block content %}{% endblock %}</main>
     {% include 'payapp/components/footer/footer.html'%}
+
+    <script src="{% static 'payapp/js/dashboard.js' %}"></script>
   </body>
 </html>

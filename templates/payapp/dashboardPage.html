@@ -1,5 +1,12 @@
 {% extends 'payapp/components/dashBase.html' %} {% block title %}Dashboard |
-PayApp | Your Online Payment Solution {%endblock %} {% block content %}
+PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
+
+<div class="flex items-center">
+  <div class="w-8 h-8 rounded-full bg-gray-300 shadow-md"></div>
+  <h1 class="ml-3 font-bold text-gray-700">{{user.username}}</h1>
+</div>
+
+{% endblock %} {% block content %}
 
 <div class="grid grid-cols-[150px,1fr] grid-rows-1">
   <div
@@ -8,8 +15,8 @@ PayApp | Your Online Payment Solution {%endblock %} {% block content %}
     <ul>
       <li>
         <a
-          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
-          href=""
+          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          href="/webapps2023/dashboard/"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +37,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block content %}
       </li>
       <li>
         <a
-          href=""
+          href="/webapps2023/transfer/"
           class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
         >
           <svg
@@ -52,7 +59,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block content %}
       </li>
       <li class="">
         <a
-          href=""
+          href="/webapps2023/account/"
           class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
         >
           <svg
@@ -75,7 +82,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block content %}
       </li>
       <li>
         <a
-          href=""
+          href="/webapps2023/requests/"
           class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
         >
           <svg
@@ -100,7 +107,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block content %}
   </div>
 
   <div class="details-dash col-start-2 col-end-3 row-start-1 row-end-2">
-    <h1>Dashboard</h1>
+    {% include 'payapp/components/dashboard/dashboard.html' with user=user %}
   </div>
 </div>
 
