@@ -15,7 +15,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
     <ul>
       <li>
         <a
-          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
           href="/webapps2023/dashboard/"
         >
           <svg
@@ -107,7 +107,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
       <li>
         <a
           href="/webapps2023/paymentrequests/"
-          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,34 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
   </div>
 
   <div class="details-dash col-start-2 col-end-3 row-start-1 row-end-2">
-    {% include 'payapp/components/dashboard/dashboard.html' with user=user %}
+    {% for request in payment_requests %} {% if request.isAccepted == False %}
+    <form method="POST" action="{% url 'process_request' %}">
+      {% csrf_token %}
+      <div
+        class="max-w-md break-words bg-gray-50 mt-3 mb-3 text-gray-900 rounded-md p-2 shadow-md m-auto flex justify-between items-center"
+      >
+        <div>
+          <h1>Sender: {{request.sender}}</h1>
+          <h1 class="font-semibold">Amount: {{request.amount}}</h1>
+          <h1>Currency: {{request.currency_type}}</h1>
+          <h1>Message:</h1>
+          <div class="p-2 rounded-md bg-yellow-950 text-white">
+            <p>{{request.message}}</p>
+          </div>
+          <h1>Date: {{request.date}}</h1>
+        </div>
+        <div>
+          <input type="hidden" name="request_id" value="{{ request.id }}" />
+          <button
+            type="submit"
+            class="p-2 bg-blue-500 text-white font-bold rounded-md shadow-md"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </form>
+    {% endif %} {% endfor %}
   </div>
 </div>
 

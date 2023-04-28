@@ -15,7 +15,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
     <ul>
       <li>
         <a
-          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
           href="/webapps2023/dashboard/"
         >
           <svg
@@ -83,7 +83,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
       <li>
         <a
           href="/webapps2023/requestpage/"
-          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,87 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
   </div>
 
   <div class="details-dash col-start-2 col-end-3 row-start-1 row-end-2">
-    {% include 'payapp/components/dashboard/dashboard.html' with user=user %}
+    <form action="{% url 'paymentrequest' %}" method="POST">
+      {% csrf_token %}
+      <div class="flex flex-col justify-center items-center mt-3">
+        <h1 class="text-2xl font-semibold text-gray-700">
+          Send Payment Request
+        </h1>
+        <div class="flex flex-col justify-center items-center mt-5">
+          <div class="flex flex-col justify-center items-center">
+            <label for="amount" class="text-gray-700 font-semibold">
+              Amount
+            </label>
+            <input
+              type="number"
+              name="amount"
+              id="amount"
+              min="1"
+              max="500"
+              class="border-[1px] border-gray-300 rounded-md px-2 py-1 w-80 focus:outline-none focus:border-blue-600"
+              required
+              placeholder="Enter amount to request"
+            />
+          </div>
+          <div class="flex flex-col justify-center items-center mt-5">
+            <label for="email" class="text-gray-700 font-semibold">
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="border-[1px] border-gray-300 rounded-md px-2 py-1 w-80 focus:outline-none focus:border-blue-600"
+              required
+              placeholder="Enter email address to request from"
+            />
+          </div>
+          <div class="flex flex-col justify-center items-center mt-5">
+            <label for="message" class="text-gray-700 font-semibold">
+              Message (Optional)
+            </label>
+            <input
+              type="text"
+              name="message"
+              id="message"
+              class="border-[1px] border-gray-300 rounded-md px-2 py-1 w-80 focus:outline-none focus:border-blue-600"
+              placeholder="Enter message (optional))"
+            />
+          </div>
+
+          {% if msg %}
+          <div
+            class="popup fixed w-full h-full bg-gray-300/50 z-10 left-0 right-0 bottom-0 top-0"
+          ></div>
+          <div
+            class="popup-card max-w-md bg-green-500 h-28 absolute left-0 right-0 top-0 bottom-0 flex justify-center items-center z-20 m-auto rounded-md text-gray-50"
+          >
+            <div class="">
+              <div class="float-right mt-3 mb-3">
+                <button
+                  id="close"
+                  class="font-bold p-2 text-red-500 bg-gray-200 rounded-md"
+                >
+                  X
+                </button>
+              </div>
+              <h1 class="font-bold text-gray-50">{{msg}}</h1>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="flex flex-col justify-center items-center mt-5">
+            <button
+              id="send"
+              type="submit"
+              class="bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition-all duration-300"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 

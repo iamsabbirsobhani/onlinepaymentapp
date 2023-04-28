@@ -1,4 +1,4 @@
-{% extends 'payapp/components/dashBase.html' %} {% block title %}Dashboard |
+{% extends 'payapp/components/dashBase.html' %} {% block title %}Transfer |
 PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
 
 <div class="flex items-center">
@@ -15,7 +15,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
     <ul>
       <li>
         <a
-          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
           href="/webapps2023/dashboard/"
         >
           <svg
@@ -38,7 +38,7 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
       <li>
         <a
           href="/webapps2023/transfer/"
-          class="hover:text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
+          class="text-blue-600 transition-all duration-300 flex flex-col justify-center items-center mt-3"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,79 @@ PayApp | Your Online Payment Solution {%endblock %} {% block navbar %}
   </div>
 
   <div class="details-dash col-start-2 col-end-3 row-start-1 row-end-2">
-    {% include 'payapp/components/dashboard/dashboard.html' with user=user %}
+    <div>
+      <form action="{% url 'transferamount' %}" method="POST">
+        {% csrf_token %}
+
+        <div class="flex flex-col justify-center items-center mt-5">
+          <h1 class="text-2xl font-semibold text-gray-700">Transfer</h1>
+          <div class="flex flex-col justify-center items-center mt-5">
+            <div class="flex flex-col justify-center items-center">
+              <label for="amount" class="text-gray-700 font-semibold"
+                >Amount</label
+              >
+              <input
+                type="number"
+                name="amount"
+                id="amount"
+                max="500"
+                min="1"
+                class="border border-gray-300 rounded-md w-80 h-10 px-3 mt-2"
+                placeholder="Enter Amount"
+              />
+            </div>
+
+            {% if error_balance %}
+            <div class="mt-3">
+              <div class="text-red-500 font-semibold">{{ error_balance }}</div>
+            </div>
+            {% endif %}
+
+            <div class="flex flex-col justify-center items-center mt-5">
+              <label for="account" class="text-gray-700 font-semibold"
+                >Receiver Email</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="account"
+                class="border border-gray-300 rounded-md w-80 h-10 px-3 mt-2"
+                placeholder="Enter email id"
+              />
+            </div>
+            {% if error_user %}
+            <div class="mt-3">
+              <div class="text-red-500 font-semibold">{{ error_user }}</div>
+            </div>
+            {% endif %}
+            <div class="flex flex-col justify-center items-center mt-5">
+              <label for="pin" class="text-gray-700 font-semibold"
+                >Your Password</label
+              >
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="border border-gray-300 rounded-md w-80 h-10 px-3 mt-2"
+                placeholder="Enter Password"
+              />
+            </div>
+
+            {% if error_msg %}
+            <div class="mt-3">
+              <div class="text-red-500 font-semibold">{{ error_msg }}</div>
+            </div>
+            {% endif %}
+
+            <div class="flex flex-col justify-center items-center mt-5">
+              <button class="bg-blue-600 text-white rounded-md w-80 h-10">
+                Transfer
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
